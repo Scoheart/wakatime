@@ -4,7 +4,11 @@ import dayjs from 'dayjs';
 // WakaTime API基础URL - 使用代理URL
 const API_BASE_URL = '/api/wakatime';
 
-
+const API_KEYS = {
+  user1: 'YOUR_WAKATIME_API_KEY_HERE',
+  user2: 'YOUR_WAKATIME_API_KEY_HERE',
+  user3: 'YOUR_WAKATIME_API_KEY_HERE'
+};
 
 // 用户信息
 export const USERS = [
