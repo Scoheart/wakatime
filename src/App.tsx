@@ -3,7 +3,12 @@ import './App.css';
 import Sidebar from './components/Sidebar';
 import UserDetailView from './components/UserDetailView';
 import TeamDashboard from './components/TeamDashboard';
-import { getMultipleUsersWeeklyStats, MultiUserCodeTimeData } from './services/wakatime';
+import {
+  getMultipleUsersWeeklyStats,
+  getUserDurationsByHour,
+  MultiUserCodeTimeData,
+} from './services/wakatime';
+import { getDuration } from './services/duration';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -26,7 +31,7 @@ function App() {
         setLoading(false);
       }
     };
-
+    getDuration();
     fetchData();
   }, []);
 
@@ -65,7 +70,10 @@ function App() {
     return (
       <div className="error-container">
         <p className="error-message">{error}</p>
-        <button className="retry-button" onClick={() => window.location.reload()}>
+        <button
+          className="retry-button"
+          onClick={() => window.location.reload()}
+        >
           重试
         </button>
       </div>
@@ -76,9 +84,9 @@ function App() {
     <div className="app">
       <div className={`app-layout ${sidebarOpen ? 'sidebar-open' : ''}`}>
         <Sidebar activeTab={activeTab} onTabChange={handleTabChange} />
-        
+
         <div className="sidebar-overlay" onClick={toggleSidebar}></div>
-        
+
         <main className="app-content">
           <header className="app-header">
             <button className="mobile-menu-toggle" onClick={toggleSidebar}>
@@ -87,11 +95,9 @@ function App() {
             <h1>WakaTime 统计</h1>
             <p>跟踪并可视化团队成员每周的编码活动</p>
           </header>
-          
-          <div className="content-container">
-            {renderActiveView()}
-          </div>
-          
+
+          <div className="content-container">{renderActiveView()}</div>
+
           <footer className="app-footer">
             <p>基于 WakaTime API 开发 | {new Date().getFullYear()}</p>
           </footer>

@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { getTeamTotalStats, MultiUserCodeTimeData, USERS } from '../services/wakatime';
 import { useEffect, useState } from 'react';
 import HourlyActivityChart from './HourlyActivityChart';
+import HourlyActivityLineChart from './HourlyActivityLineChart';
 
 interface TeamDashboardProps {
   codeTimeData: MultiUserCodeTimeData;
@@ -443,6 +444,22 @@ const TeamDashboard = ({ codeTimeData }: TeamDashboardProps) => {
           height={isMobile ? "300px" : "400px"}
           selectedDate={formatDate(selectedDay?.date || '')}
         />
+
+        {/* 新增加的24小时活动折线图 */}
+        <div className="hourly-activity-line-chart" style={{ marginTop: '30px' }}>
+          <h3 className="section-title">团队24小时活动折线图（含总计）</h3>
+          <HourlyActivityLineChart 
+            data={hourlyActivityData} 
+            title="团队24小时活动分布（分钟）"
+            height={isMobile ? "300px" : "400px"}
+            customColors={{
+              Browsing: '#FF6384',
+              Coding: '#36A2EB',
+              total: '#000000'
+            }}
+            selectedDate={formatDate(selectedDay?.date || '')}
+          />
+        </div>
       </div>
       
       <div className="charts-section team-charts-grid">

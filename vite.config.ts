@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api/wakatime': {
+      '/api/v1': {
         target: 'https://wakatime.com/api/v1',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/wakatime/, ''),
+        rewrite: (path) => path.replace(/^\/api\/v1/, ''),
       },
     },
   },

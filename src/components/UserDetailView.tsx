@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { CodeTimeData, USERS } from '../services/wakatime';
 import { useEffect, useState } from 'react';
 import HourlyActivityChart from './HourlyActivityChart';
+import HourlyActivityLineChart from './HourlyActivityLineChart';
 
 interface UserDetailViewProps {
   userId: string;
@@ -329,6 +330,22 @@ const UserDetailView = ({ userId, userData }: UserDetailViewProps) => {
           }}
           selectedDate={formatDate(selectedDay?.date || '')}
         />
+
+        {/* 新增加的24小时活动折线图 */}
+        <div className="chart-section" style={{ marginTop: '30px' }}>
+          <h3 className="section-title">24小时活动折线图（含总计）</h3>
+          <HourlyActivityLineChart 
+            data={selectedDay?.hourlyActivity} 
+            title="24小时活动分布（分钟）"
+            height={isMobile ? "280px" : "350px"}
+            customColors={{
+              Browsing: '#FF6384',
+              Coding: user.color,
+              total: '#000000'
+            }}
+            selectedDate={formatDate(selectedDay?.date || '')}
+          />
+        </div>
       </div>
       
       <div className="stats-grid">
